@@ -28,7 +28,7 @@ function Payment() {
     const getClientSecret = async () => {
       try {
         const response = await axios.post(
-          `/payments/create?total=${getbasketTotal(basket) * 100}`
+          `/payments/create?total=${getbasketTotal(basket) * 100}`,
         );
 
         if (response?.data?.clientSecret) {
@@ -81,14 +81,11 @@ function Payment() {
         console.log("🔥 Payment successful, saving to Firestore...");
 
         try {
-          await setDoc(
-            doc(db, "users", user.uid, "orders", paymentIntent.id),
-            {
-              basket,
-              amount: paymentIntent.amount,
-              created: paymentIntent.created,
-            }
-          );
+          await setDoc(doc(db, "users", user.uid, "orders", paymentIntent.id), {
+            basket,
+            amount: paymentIntent.amount,
+            created: paymentIntent.created,
+          });
 
           console.log("✅ Saved to Firestore");
         } catch (err) {

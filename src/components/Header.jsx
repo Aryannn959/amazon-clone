@@ -16,6 +16,8 @@ function Header() {
         .catch((error) => {
           console.error("Sign out error:", error);
         });
+          
+        dispatch({type:'EMPTY_BASKET'})
     }
   };
   return (
